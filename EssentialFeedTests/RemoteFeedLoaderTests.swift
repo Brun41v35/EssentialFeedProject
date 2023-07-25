@@ -41,8 +41,7 @@ class RemoteFeedLoaderTests: XCTestCase {
         var capturedErrors = [RemoteFeedLoader.Error]()
         sut.load { capturedErrors.append($0) }
         
-        let clientError = NSError(domain: "Test",
-                                  code: 0)
+        let clientError = NSError(domain: "Test", code: 0)
         client.complete(with: clientError)
         
         XCTAssertEqual(capturedErrors, [.connectivity])
@@ -57,21 +56,22 @@ class RemoteFeedLoaderTests: XCTestCase {
             var capturedErrors = [RemoteFeedLoader.Error]()
             sut.load { capturedErrors.append($0) }
             
-            client.complete(withStatusCode: code,
-                            at: index)
+            client.complete(withStatusCode: code, at: index)
             XCTAssertEqual(capturedErrors, [.invalidData])
         }
+    }
+
+    func test_load_deliversErrorOn200HTTPResponseWithInvalidJSON() {
+        let (sut, client) = makeSUT()
         
-        func test_load_deliversErrorOn200HTTPResponseWithInvalidJSON() {
-            var capturedErrors = [RemoteFeedLoader.Error]()
-            sut.load { capturedErrors.append($0) }
-            
-            let invalidJSON = Data("invalid json".utf8)
-            
-            client.complete(withStatusCode: 200,
-                            data: invalidJSON)
-            XCTAssertEqual(capturedErrors, [.invalidData])
-        }
+        var capturedErrors = [RemoteFeedLoader.Error]()
+        sut.load { capturedErrors.append($0) }
+        
+        let invalidJSON = Data("invalid json".utf8)
+        
+        client.complete(withStatusCode: 200,
+                        data: invalidJSON)
+        XCTAssertEqual(capturedErrors, [.invalidData])
     }
     
     // MARK: - Helper
@@ -91,13 +91,11 @@ class RemoteFeedLoaderTests: XCTestCase {
             return messages.map { $0.url }
         }
         
-        func get(from url: URL,
-                 completion: @escaping (HTTPClientResult) -> Void) {
+        func get(from url: URL, completion: @escaping (HTTPClientResult) -> Void) {
             messages.append((url, completion))
         }
         
-        func complete(with error: Error,
-                      at index: Int = 0) {
+        func complete(with error: Error, at index: Int = 0) {
             messages[index].completion(.error(error))
         }
         

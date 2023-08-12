@@ -8,9 +8,6 @@
 import XCTest
 import EssentialFeed
 
-import XCTest
-import EssentialFeed
-
 class URLSessionHTTPClient: HTTPClient {
     private let session: URLSession
     

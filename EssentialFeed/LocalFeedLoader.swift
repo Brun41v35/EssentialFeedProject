@@ -11,6 +11,7 @@ public final class LocalFeedLoader {
 
     private var store: FeedStore
     private var currentDate: () -> Date
+    public typealias SaveResult = Error?
 
     public init(store: FeedStore,
          currentDate: @escaping () -> Date) {
@@ -19,7 +20,7 @@ public final class LocalFeedLoader {
     }
 
     public func save(_ items: [FeedItem],
-              completion: @escaping (Error?) -> Void) {
+              completion: @escaping (SaveResult) -> Void) {
         store.deleteCachedFeed() { [weak self] error in
             guard let self = self else { return }
 
@@ -31,7 +32,7 @@ public final class LocalFeedLoader {
         }
     }
 
-    private func cache(_ items: [FeedItem], with completion: @escaping (Error?) -> Void) {
+    private func cache(_ items: [FeedItem], with completion: @escaping (SaveResult) -> Void) {
         store.insert(items,
                      timeStamp: currentDate()) { [weak self] error in
             guard self != nil else { return }

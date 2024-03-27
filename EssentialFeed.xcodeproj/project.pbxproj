@@ -40,6 +40,7 @@
 		7E8C6A4F2A881CAF00651435 /* EssentialFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E259FD62A6060B30095B8CB /* EssentialFeed.framework */; };
 		7E9C4EE12A65EF1300797AB7 /* LoadFeedFromRemoteUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9C4EE02A65EF1300797AB7 /* LoadFeedFromRemoteUseCaseTests.swift */; };
 		7EB841922A880CDE00D3CB5D /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB841912A880CDE00D3CB5D /* URLSessionHTTPClient.swift */; };
+		7EC1021B2BB3A3FC00E56159 /* FeedViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1021A2BB3A3FC00E56159 /* FeedViewControllerTests.swift */; };
 		7ECF97512A66EFC30065CCD2 /* RemoteFeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECF97502A66EFC30065CCD2 /* RemoteFeedLoader.swift */; };
 		7ED843842A60E423005DFFB3 /* FeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED843832A60E423005DFFB3 /* FeedLoader.swift */; };
 		7EE32E802BB08EBC000BF7C5 /* EssentialFeediOS.docc in Sources */ = {isa = PBXBuildFile; fileRef = 7EE32E7F2BB08EBB000BF7C5 /* EssentialFeediOS.docc */; };
@@ -112,8 +113,9 @@
 		7E8C6A4B2A881CAF00651435 /* EssentialFeedAPIEnToEndTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EssentialFeedAPIEnToEndTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E8C6A4D2A881CAF00651435 /* EssentialFeedAPIEnToEndTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialFeedAPIEnToEndTests.swift; sourceTree = "<group>"; };
 		7E9C4EE02A65EF1300797AB7 /* LoadFeedFromRemoteUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadFeedFromRemoteUseCaseTests.swift; sourceTree = "<group>"; };
-		7EAE19642BB08F90003FFCF5 /* EssentialFeediOS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = file; path = EssentialFeediOS.xctestplan; sourceTree = SOURCE_ROOT; };
+		7EAE19642BB08F90003FFCF5 /* EssentialFeediOS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = EssentialFeediOS.xctestplan; sourceTree = SOURCE_ROOT; };
 		7EB841912A880CDE00D3CB5D /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
+		7EC1021A2BB3A3FC00E56159 /* FeedViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewControllerTests.swift; sourceTree = "<group>"; };
 		7ECF97502A66EFC30065CCD2 /* RemoteFeedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteFeedLoader.swift; sourceTree = "<group>"; };
 		7ED843832A60E423005DFFB3 /* FeedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoader.swift; sourceTree = "<group>"; };
 		7EE32E762BB08B77000BF7C5 /* EssentialFeedAPIEnToEndTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = EssentialFeedAPIEnToEndTests.xctestplan; sourceTree = "<group>"; };
@@ -341,6 +343,7 @@
 		7EE32E892BB08EBC000BF7C5 /* EssentialFeediOSTests */ = {
 			isa = PBXGroup;
 			children = (
+				7EC1021A2BB3A3FC00E56159 /* FeedViewControllerTests.swift */,
 			);
 			path = EssentialFeediOSTests;
 			sourceTree = "<group>";
@@ -508,6 +511,7 @@
 					};
 					7EE32E842BB08EBC000BF7C5 = {
 						CreatedOnToolsVersion = 15.2;
+						LastSwiftMigration = 1520;
 					};
 					7EEEA29B2BAF32C200B70670 = {
 						CreatedOnToolsVersion = 15.2;
@@ -646,6 +650,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7EC1021B2BB3A3FC00E56159 /* FeedViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1021,6 +1026,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = QXX4852TTD;
@@ -1035,6 +1041,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1044,6 +1051,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = QXX4852TTD;

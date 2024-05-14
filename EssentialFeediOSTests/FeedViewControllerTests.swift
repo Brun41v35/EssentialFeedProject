@@ -35,7 +35,15 @@ final class FeedViewControllerTests: XCTestCase {
         loader.completeFeedLoading(at: 1)
         XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once user initiated loading is completed")
     }
-    
+
+    func test_loadFeedCompletion_rendersSuccessfullyLoadedFeed() {
+        let (sut, loader) = makeSUT()
+
+        sut.loadViewIfNeeded()
+
+        XCTAssertEqual(sut.numberOfRenderedFeedImagesViews(), 0)
+    }
+
     // MARK: - Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: FeedViewController, loader: LoaderSpy) {
@@ -71,6 +79,14 @@ private extension FeedViewController {
     
     var isShowingLoadingIndicator: Bool {
         return refreshControl?.isRefreshing == true
+    }
+
+    func numberOfRenderedFeedImagesView() -> Int {
+        return tableView.numberOfRows(inSection: feedImagesSection)
+    }
+
+    var feedImagesSection: Int {
+        return 0
     }
 }
 

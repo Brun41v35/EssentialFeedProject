@@ -68,7 +68,8 @@ final class FeedViewControllerTests: XCTestCase {
 
     // MARK: - Helpers
 
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: FeedViewController, loader: LoaderSpy) {
+    private func makeSUT(file: StaticString = #file,
+                         line: UInt = #line) -> (sut: FeedViewController, loader: LoaderSpy) {
         let loader = LoaderSpy()
         let sut = FeedViewController(loader: loader)
         trackForMemoryLeak(loader, file: file, line: line)
@@ -76,7 +77,10 @@ final class FeedViewControllerTests: XCTestCase {
         return (sut, loader)
     }
 
-    private func assertThat(_ sut: FeedViewController, isRendering feed: [FeedImage], file: StaticString = #file, line: UInt = #line) {
+    private func assertThat(_ sut: FeedViewController,
+                            isRendering feed: [FeedImage],
+                            file: StaticString = #file,
+                            line: UInt = #line) {
         guard sut.numberOfRenderedFeedImageViews() == feed.count else {
             return XCTFail("Expected \(feed.count) images, got \(sut.numberOfRenderedFeedImageViews()) instead.", file: file, line: line)
         }
@@ -86,7 +90,11 @@ final class FeedViewControllerTests: XCTestCase {
         }
     }
 
-    private func assertThat(_ sut: FeedViewController, hasViewConfiguredFor image: FeedImage, at index: Int, file: StaticString = #file, line: UInt = #line) {
+    private func assertThat(_ sut: FeedViewController,
+                            hasViewConfiguredFor image: FeedImage,
+                            at index: Int,
+                            file: StaticString = #file,
+                            line: UInt = #line) {
         let view = sut.feedImageView(at: index)
 
         guard let cell = view as? FeedImageCell else {
@@ -101,7 +109,9 @@ final class FeedViewControllerTests: XCTestCase {
         XCTAssertEqual(cell.descriptionText, image.description, "Expected description text to be \(String(describing: image.description)) for image view at index (\(index)", file: file, line: line)
     }
 
-    private func makeImage(description: String? = nil, location: String? = nil, url: URL = URL(string: "http://any-url.com")!) -> FeedImage {
+    private func makeImage(description: String? = nil,
+                           location: String? = nil,
+                           url: URL = URL(string: "http://any-url.com")!) -> FeedImage {
         return FeedImage(id: UUID(), description: description, location: location, url: url)
     }
 

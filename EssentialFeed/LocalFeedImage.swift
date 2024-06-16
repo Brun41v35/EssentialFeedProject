@@ -12,7 +12,7 @@ public struct LocalFeedImage: Equatable {
     public let description: String?
     public let location: String?
     public let url: URL
-    
+
     public init(id: UUID,
                 description: String?,
                 location: String?,

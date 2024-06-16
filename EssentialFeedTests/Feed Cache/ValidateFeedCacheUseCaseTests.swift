@@ -12,7 +12,7 @@ class ValidateFeedCacheUseCaseTests: XCTestCase {
 
     func test_init_doesNotMessageStoreUponCreation() {
         let (_, store) = makeSUT()
-        
+
         XCTAssertEqual(store.receivedMessages, [])
     }
 
@@ -21,7 +21,7 @@ class ValidateFeedCacheUseCaseTests: XCTestCase {
 
         sut.validateCache()
         store.completeRetrieval(with: anyNSError())
-        
+
         XCTAssertEqual(store.receivedMessages, [.retrieve, .deleteCachedFeed])
     }
 
@@ -30,7 +30,7 @@ class ValidateFeedCacheUseCaseTests: XCTestCase {
 
         sut.validateCache()
         store.completeRetrievalWithEmptyCache()
-        
+
         XCTAssertEqual(store.receivedMessages, [.retrieve])
     }
 
@@ -42,7 +42,7 @@ class ValidateFeedCacheUseCaseTests: XCTestCase {
 
         sut.validateCache()
         store.completeRetrieval(with: feed.local, timestamp: nonExpiredTimestamp)
-        
+
         XCTAssertEqual(store.receivedMessages, [.retrieve])
     }
 
@@ -54,7 +54,7 @@ class ValidateFeedCacheUseCaseTests: XCTestCase {
 
         sut.validateCache()
         store.completeRetrieval(with: feed.local, timestamp: expirationTimestamp)
-        
+
         XCTAssertEqual(store.receivedMessages, [.retrieve, .deleteCachedFeed])
     }
 
@@ -63,10 +63,10 @@ class ValidateFeedCacheUseCaseTests: XCTestCase {
         let fixedCurrentDate = Date()
         let expiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: -1)
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
-
+        
         sut.validateCache()
         store.completeRetrieval(with: feed.local, timestamp: expiredTimestamp)
-        
+
         XCTAssertEqual(store.receivedMessages, [.retrieve, .deleteCachedFeed])
     }
 
@@ -74,7 +74,7 @@ class ValidateFeedCacheUseCaseTests: XCTestCase {
         let store = FeedStoreSpy()
         var sut: LocalFeedLoader? = LocalFeedLoader(store: store,
                                                     currentDate: Date.init)
-    
+
         sut?.validateCache()
         sut = nil
 

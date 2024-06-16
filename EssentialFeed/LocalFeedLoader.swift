@@ -8,7 +8,7 @@
 import Foundation
 
 public final class LocalFeedLoader {
-    
+
     private var store: FeedStore
     private var currentDate: () -> Date
 
@@ -22,7 +22,7 @@ public final class LocalFeedLoader {
 extension LocalFeedLoader {
 
     public typealias SaveResult = Result<Void, Error>
-    
+
     public func save(_ feed: [FeedImage],
                      completion: @escaping (SaveResult) -> Void) {
         store.deleteCachedFeed() { [weak self] deletionResult in
@@ -48,17 +48,17 @@ extension LocalFeedLoader {
 extension LocalFeedLoader: FeedLoader {
 
     public typealias LoadResult = FeedLoader.Result
-    
+
     public func load(completion: @escaping (LoadResult) -> Void) {
         store.retrieve { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .failure(error):
                 completion(.failure(error))
-                
+
             case let .success(.some((feed, timestamp))) where FeedCachePolicy.validate(timestamp, against: self.currentDate()):
                 completion(.success(feed.toModels()))
-                
+
             case .success:
                 completion(.success([]))
             }
@@ -70,15 +70,15 @@ extension LocalFeedLoader {
     public func validateCache() {
         store.retrieve { [weak self] result in
             guard let self = self else { return }
-            
+
             switch result {
             case .failure:
                 self.store.deleteCachedFeed { _ in }
-                
+
             case let .success(.some((_, timestamp))) where !FeedCachePolicy.validate(timestamp,
-                                                                                    against: self.currentDate()):
+                                                                                     against: self.currentDate()):
                 self.store.deleteCachedFeed { _ in }
-                
+
             case .success:
                 break
             }
@@ -89,9 +89,9 @@ extension LocalFeedLoader {
 private extension Array where Element == FeedImage {
     func toLocal() -> [LocalFeedImage] {
         return map { LocalFeedImage(id: $0.id,
-                                   description: $0.description,
-                                   location: $0.location,
-                                   url: $0.url)}
+                                    description: $0.description,
+                                    location: $0.location,
+                                    url: $0.url)}
     }
 }
 

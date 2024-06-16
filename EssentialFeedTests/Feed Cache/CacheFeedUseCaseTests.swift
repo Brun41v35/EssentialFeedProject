@@ -12,7 +12,7 @@ class CacheFeedUseCaseTests: XCTestCase {
 
     func test_init_doesNotMessageStoreUponCreation() {
         let (_, store) = makeSUT()
-        
+
         XCTAssertEqual(store.receivedMessages, [])
     }
 
@@ -125,7 +125,7 @@ class CacheFeedUseCaseTests: XCTestCase {
                         line: UInt = #line) {
         let exp = expectation(description: "Wait for save completion")
         var receivedError: Error?
-        
+
         sut.save(uniqueImageFeed().models) { result in
             if case let Result.failure(error) = result { receivedError = error }
             exp.fulfill()

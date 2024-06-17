@@ -9,7 +9,6 @@ import UIKit
 import EssentialFeed
 
 public final class FeedUIComposer {
-
     private init() {}
 
     public static func feedComposedWith(feedLoader: FeedLoader, imageLoader: FeedImageDataLoader) -> FeedViewController {
@@ -44,8 +43,8 @@ private final class WeakRefVirtualProxy<T: AnyObject> {
 }
 
 extension WeakRefVirtualProxy: FeedLoadingView where T: FeedLoadingView {
-    func display(isLoading: Bool) {
-        object?.display(isLoading: isLoading)
+    func display(_ viewModel: FeedLoadingViewModel) {
+        object?.display(viewModel)
     }
 }
 
@@ -58,12 +57,10 @@ private final class FeedViewAdapter: FeedView {
         self.imageLoader = imageLoader
     }
 
-    func display(feed: [FeedImage]) {
-        controller?.tableModel = feed.map { model in
+    func display(_ viewModel: FeedViewModel) {
+        controller?.tableModel = viewModel.feed.map { model in
             FeedImageCellController(viewModel:
-                                        FeedImageViewModel(model: model,
-                                                           imageLoader: imageLoader,
-                                                           imageTransformer: UIImage.init))
+                                        FeedImageViewModel(model: model, imageLoader: imageLoader, imageTransformer: UIImage.init))
         }
     }
 }

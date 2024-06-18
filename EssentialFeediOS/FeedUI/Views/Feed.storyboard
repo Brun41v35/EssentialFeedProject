@@ -77,6 +77,9 @@
                                                             <buttonConfiguration key="configuration" style="plain" title="🔄">
                                                                 <fontDescription key="titleFontDescription" type="system" pointSize="60"/>
                                                             </buttonConfiguration>
+                                                            <connections>
+                                                                <action selector="retryButtonTapped" destination="iIn-QD-pGh" eventType="touchUpInside" id="xRk-c0-m7B"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.89019607840000003" green="0.89019607840000003" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -114,6 +117,14 @@
                                         <constraint firstItem="L1y-pc-CQM" firstAttribute="top" secondItem="EsF-Rw-m9K" secondAttribute="topMargin" priority="999" constant="6" id="Ryt-Fi-rs0"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="descriptionLabel" destination="IBs-Nr-Boh" id="yEJ-K7-2ud"/>
+                                    <outlet property="feedImageContainer" destination="jdm-YL-DR3" id="F5U-nI-IIC"/>
+                                    <outlet property="feedImageRetryButton" destination="fqB-to-MTo" id="Wdz-Mq-C6n"/>
+                                    <outlet property="feedImageView" destination="RQG-HZ-kfc" id="SQg-CD-49Q"/>
+                                    <outlet property="locationContainer" destination="sTa-Ou-qIi" id="MBi-aI-0MX"/>
+                                    <outlet property="locationLabel" destination="WP4-8j-lVF" id="yNh-ye-eJp"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

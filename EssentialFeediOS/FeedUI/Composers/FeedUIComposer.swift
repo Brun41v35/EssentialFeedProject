@@ -9,46 +9,50 @@ import UIKit
 import EssentialFeed
 
 public final class FeedUIComposer {
-
     private init() {}
 
-    public static func feedComposedWith(feedLoader: FeedLoader,
-                                        imageLoader: FeedImageDataLoader) -> FeedViewController {
-        let presentationAdapter = FeedLoaderPresentationAdapter(feedLoader: MainQueueDispatchDecorator(decorate: feedLoader))
+    public static func feedComposedWith(feedLoader: FeedLoader, imageLoader: FeedImageDataLoader) -> FeedViewController {
+        let presentationAdapter = FeedLoaderPresentationAdapter(feedLoader:
+                                                                    MainQueueDispatchDecorator(decorate: feedLoader))
+
         let feedController = FeedViewController.makeWith(
             delegate: presentationAdapter,
             title: FeedPresenter.title)
 
-        presentationAdapter.presenter = FeedPresenter(feedView: FeedViewAdapter(controller: feedController,
-                                                                                imageLoader: imageLoader),
-                                                      loadingView: WeakRefVirtualProxy(feedController))
+        presentationAdapter.presenter = FeedPresenter(
+            feedView: FeedViewAdapter(controller: feedController, imageLoader: imageLoader),
+            loadingView: WeakRefVirtualProxy(feedController))
 
         return feedController
     }
 }
 
-private final class MainQueueDispatchDecorator: FeedLoader {
-    private let decorate: FeedLoader
+private final class MainQueueDispatchDecorator<T> {
 
-    init(decorate: FeedLoader) {
+    private let decorate: T
+
+    init(decorate: T) {
         self.decorate = decorate
     }
 
+    func dispatch(completion: @escaping () -> Void) {
+        guard Thread.isMainThread else {
+            return DispatchQueue.main.async(execute: completion)
+        }
+
+        completion()
+    }
+}
+
+extension MainQueueDispatchDecorator: FeedLoader where T == FeedLoader {
     func load(completion: @escaping (FeedLoader.Result) -> Void) {
-        decorate.load { result in
-            if Thread.isMainThread {
-                completion(result)
-            } else {
-                DispatchQueue.main.async {
-                    completion(result)
-                }
-            }
+        decorate.load { [weak self] result in
+            self?.dispatch { completion(result) }
         }
     }
 }
 
 private extension FeedViewController {
-
     static func makeWith(delegate: FeedViewControllerDelegate, title: String) -> FeedViewController {
         let bundle = Bundle(for: FeedViewController.self)
         let storyboard = UIStoryboard(name: "Feed", bundle: bundle)
@@ -90,9 +94,7 @@ private final class FeedViewAdapter: FeedView {
 
     func display(_ viewModel: FeedViewModel) {
         controller?.tableModel = viewModel.feed.map { model in
-            let adapter = FeedImageDataLoaderPresentationAdapter<WeakRefVirtualProxy<FeedImageCellController>,
-                                                                 UIImage>(model: model,
-                                                                          imageLoader: imageLoader)
+            let adapter = FeedImageDataLoaderPresentationAdapter<WeakRefVirtualProxy<FeedImageCellController>, UIImage>(model: model, imageLoader: imageLoader)
             let view = FeedImageCellController(delegate: adapter)
 
             adapter.presenter = FeedImagePresenter(
@@ -105,6 +107,7 @@ private final class FeedViewAdapter: FeedView {
 }
 
 private final class FeedLoaderPresentationAdapter: FeedViewControllerDelegate {
+
     private let feedLoader: FeedLoader
     var presenter: FeedPresenter?
 

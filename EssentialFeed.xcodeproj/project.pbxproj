@@ -494,9 +494,9 @@
 			children = (
 				7EA3AA152C2E310D00E2E187 /* FeedPresenter.swift */,
 				7E402BC82C34CAC1008BC7BF /* FeedViewModel.swift .swift */,
-				7EA3AA0F2C2E202C00E2E187 /* Feed.strings */,
 				7E402BCA2C34CB2A008BC7BF /* FeedLoadingViewModel.swift */,
 				7E402BCC2C34CB59008BC7BF /* FeedErrorViewModel.swift */,
+				7EA3AA0F2C2E202C00E2E187 /* Feed.strings */,
 			);
 			name = FeedPresentation;
 			sourceTree = "<group>";

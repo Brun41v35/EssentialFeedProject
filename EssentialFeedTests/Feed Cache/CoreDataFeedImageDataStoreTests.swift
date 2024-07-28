@@ -53,7 +53,7 @@ class CoreDataFeedImageDataStoreTests: XCTestCase {
         let url = anyURL()
 
         let op1 = expectation(description: "Operation 1")
-        sut.insert([localImage(url: url)], timestamp: Date()) { _ in
+        sut.insert([localImage(url: url)], timeStamp: Date()) { _ in
             op1.fulfill()
         }
 

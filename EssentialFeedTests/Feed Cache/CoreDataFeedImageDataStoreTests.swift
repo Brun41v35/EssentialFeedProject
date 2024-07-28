@@ -53,7 +53,7 @@ class CoreDataFeedImageDataStoreTests: XCTestCase {
         let url = anyURL()
 
         let op1 = expectation(description: "Operation 1")
-        sut.insert([localImage(url: url)], timeStamp: Date()) { _ in
+        sut.insert([localImage(url: url)], timestamp: Date()) { _ in
             op1.fulfill()
         }
 
@@ -69,9 +69,8 @@ class CoreDataFeedImageDataStoreTests: XCTestCase {
     //MARK: - Helpers
 
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> CoreDataFeedStore {
-        let storeBundle = Bundle(for: CoreDataFeedStore.self)
         let storeURL = URL(fileURLWithPath: "/dev/null")
-        let sut = try! CoreDataFeedStore(storeURL: storeURL, bundle: storeBundle)
+        let sut = try! CoreDataFeedStore(storeURL: storeURL)
         trackForMemoryLeak(sut, file: file, line: line)
         return sut
     }
